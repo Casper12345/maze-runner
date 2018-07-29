@@ -32,10 +32,10 @@ class FileParserSpec extends FreeSpec with Matchers {
 
 
     f.fileParser.parseFile shouldEqual List(
-      List(Right(1), Left(new NumberFormatException), Right(1), Right(1), Right(0), Right(1)),
-      List(Right(1), Right(1), Left(new NumberFormatException), Right(1), Right(0), Right(1)),
-      List(Right(0), Right(0), Right(0), Left(new NumberFormatException), Right(0), Right(1)),
-      List(Right(1), Left(new NumberFormatException), Right(1), Right(1), Right(1), Right(1))
+      List(Right(1), Left(ParserExceptions.NumberFormatException), Right(1), Right(1), Right(0), Right(1)),
+      List(Right(1), Right(1), Left(ParserExceptions.NumberFormatException), Right(1), Right(0), Right(1)),
+      List(Right(0), Right(0), Right(0), Left(ParserExceptions.NumberFormatException), Right(0), Right(1)),
+      List(Right(1), Left(ParserExceptions.NumberFormatException), Right(1), Right(1), Left(ParserExceptions.NumberFormatException), Right(1))
     )
 
   }
