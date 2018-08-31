@@ -26,7 +26,7 @@ class FileParserSpec extends FreeSpec with Matchers {
 
   }
 
-  "parse file should parse file to lefts of throwable when parsing a malformed csv" in {
+  "parse file should parse file to lefts of NumberFormatException when parsing a malformed csv" in {
 
     val f = fixture(new File("src/test/resources/badMaze.csv"))
 
@@ -37,6 +37,20 @@ class FileParserSpec extends FreeSpec with Matchers {
       List(Right(0), Right(0), Right(0), Left(ParserExceptions.NumberFormatException), Right(0), Right(1)),
       List(Right(1), Left(ParserExceptions.NumberFormatException), Right(1), Right(1), Left(ParserExceptions.NumberFormatException), Right(1))
     )
+
+  }
+
+  "parse file should parse number that are 0 or 1 to NumberOutOfRangeException" in {
+    val f = fixture(new File("src/test/resources/anotherBadMaze.csv"))
+
+
+    f.fileParser.parseFile shouldEqual List(
+      List(Right(1), Left(ParserExceptions.NumberOutOfRangeException), Right(1), Right(1), Right(0), Right(1)),
+      List(Right(1), Right(1), Right(1), Right(1), Right(0), Left(ParserExceptions.NumberOutOfRangeException)),
+      List(Left(ParserExceptions.NumberOutOfRangeException), Right(0), Right(0), Right(0), Right(0), Right(1)),
+      List(Left(ParserExceptions.NumberOutOfRangeException), Right(1), Right(1), Right(1), Right(1), Left(ParserExceptions.NumberOutOfRangeException))
+    )
+
 
   }
 
